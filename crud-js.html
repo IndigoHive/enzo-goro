@@ -3,13 +3,25 @@
 <head>
   <style>
     .delete-btn {
+      background-color: lightgray;
       color: red;
       border: none;
       padding: 5px 10px;
       cursor: pointer;
       display: none;
     }
-    .entry:hover .delete-btn {
+
+    .edit-btn {
+      background-color: lightgray;
+      color: blue;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .entry:hover .delete-btn,
+    .entry:hover .edit-btn {
       display: inline-block;
     }
   </style>
@@ -59,22 +71,48 @@
     const descricao = document.createElement("td")
     descricao.textContent = document.getElementById("insert-descricao").value
 
+    const editButton = document.createElement("button")
+    editButton.className = "edit-btn"
+    editButton.textContent = "Edit"
+    editButton.addEventListener("click", (event) => {
+      event.stopPropagation()
+      row.innerHTML = `
+      <td><input id="edit-id" value="` + id.textContent + `"></td>
+      <td><input id="edit-nome" value="` + nome.textContent + `"></td>
+      <td><input id="edit-descricao" value="` + descricao.textContent + `"></td>
+      <td><button id="save-btn">Save</button></td>
+      `
+      saveButton = document.getElementById("save-btn")
+      saveButton.addEventListener("click", () => {
+        id.textContent = document.getElementById("edit-id").value
+        nome.textContent = document.getElementById("edit-nome").value
+        descricao.textContent = document.getElementById("edit-descricao").value
+        row.innerHTML = ""
+        row.appendChild(id)
+        row.appendChild(nome)
+        row.appendChild(descricao)
+        row.appendChild(editButton)
+        row.appendChild(deleteButton)
+      })
+    })
+
     const deleteButton = document.createElement("button")
+    deleteButton.className = "delete-btn"
     deleteButton.textContent = "X"
-    deleteButton.addEventListener("click", function () {
+    deleteButton.addEventListener("click", (event) => {
+      event.stopPropagation()
       table.removeChild(row)
     })
-    
-    deleteButton.className = "delete-btn"
 
     const row = document.createElement("tr")
+    row.className = "entry"
+
     row.appendChild(id)
     row.appendChild(nome)
     row.appendChild(descricao)
+    row.appendChild(editButton)
     row.appendChild(deleteButton)
-    row.className = "entry"
 
     table.appendChild(row)
   }
-
 </script>
