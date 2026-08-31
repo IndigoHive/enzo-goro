@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head>
+
+</head>
+
+<body>
+  <h3>TABELA</h3>
+  <div>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td>NOME</td>
+        <td>DESCRIÇÃO</td>
+      </tr>
+    </table>
+  </div>
+  <hr>
+  <h3>INSERT</h3>
+  <div>
+    <form>
+      <label>ID:</label>
+      <input id="insert-id">
+      <label>NOME:</label>
+      <input id="insert-nome">
+      <label>DESCRIÇÃO:</label>
+      <input id="insert-descricao">
+      <button type="button" id="insert-btn">INSERT</button>
+    </form>
+  </div>
+</body>
+
+<script>
+  const botao = document.getElementById("insert-btn")
+  botao.addEventListener("click", insert)
+
+  function insert() {
+    const table = document.querySelector("table")
+
+    const id = document.createElement("td")
+    id.textContent = document.getElementById("insert-id").value
+    const nome = document.createElement("td")
+    nome.textContent = document.getElementById("insert-nome").value
+    const descricao = document.createElement("td")
+    descricao.textContent = document.getElementById("insert-descricao").value
+
+    const row = document.createElement("tr")
+    row.appendChild(id)
+    row.appendChild(nome)
+    row.appendChild(descricao)
+
+    table.appendChild(row)
+  }
+
+</script>
