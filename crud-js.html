@@ -46,8 +46,6 @@
   <h3>INSERT</h3>
   <div>
     <form>
-      <label>ID:</label>
-      <input id="insert-id">
       <label>NOME:</label>
       <input id="insert-nome">
       <label>DESCRIÇÃO:</label>
@@ -61,39 +59,46 @@
   const botao = document.getElementById("insert-btn")
   botao.addEventListener("click", insert)
 
-  function insert() {
-    const table = document.querySelector("tbody")
+  reload()
 
+  function insert() {
+    const nome = document.getElementById("insert-nome").value
+    const descricao = document.getElementById("insert-descricao").value
+    const id = Number(parseInt(localStorage.getItem("id")) || 0) + 1
+    localStorage.setItem("id", id)
+    const entry = { id, nome, descricao }
+    insertLocalStorage(entry)
+  }
+
+  function insertLocalStorage(entry) {
+    const list = JSON.parse(localStorage.getItem("list")) || [] 
+    list.push(entry)
+    localStorage.setItem("list", JSON.stringify(list))
+    reload()
+  }
+
+  function reload() {
+    const table = document.querySelector("tbody")
+    table.innerHTML = ""
+    const list = JSON.parse(localStorage.getItem("list")) || []
+    list.forEach(entry => {table.appendChild(createRow(entry))})
+  }
+
+  function createRow(entry) {
     const id = document.createElement("td")
-    id.textContent = document.getElementById("insert-id").value
+    id.textContent = entry.id
     const nome = document.createElement("td")
-    nome.textContent = document.getElementById("insert-nome").value
+    nome.textContent = entry.nome
     const descricao = document.createElement("td")
-    descricao.textContent = document.getElementById("insert-descricao").value
+    descricao.textContent = entry.descricao
 
     const editButton = document.createElement("button")
     editButton.className = "edit-btn"
     editButton.textContent = "Edit"
     editButton.addEventListener("click", (event) => {
+      // ALTERAR LOGICA DE EDIT
       event.stopPropagation()
-      row.innerHTML = `
-      <td><input id="edit-id" value="` + id.textContent + `"></td>
-      <td><input id="edit-nome" value="` + nome.textContent + `"></td>
-      <td><input id="edit-descricao" value="` + descricao.textContent + `"></td>
-      <td><button id="save-btn">Save</button></td>
-      `
-      saveButton = document.getElementById("save-btn")
-      saveButton.addEventListener("click", () => {
-        id.textContent = document.getElementById("edit-id").value
-        nome.textContent = document.getElementById("edit-nome").value
-        descricao.textContent = document.getElementById("edit-descricao").value
-        row.innerHTML = ""
-        row.appendChild(id)
-        row.appendChild(nome)
-        row.appendChild(descricao)
-        row.appendChild(editButton)
-        row.appendChild(deleteButton)
-      })
+      editEntry(entry.id)
     })
 
     const deleteButton = document.createElement("button")
@@ -101,18 +106,45 @@
     deleteButton.textContent = "X"
     deleteButton.addEventListener("click", (event) => {
       event.stopPropagation()
-      table.removeChild(row)
+      deleteEntry(entry.id)
     })
 
     const row = document.createElement("tr")
     row.className = "entry"
+    row.id = "entry-" + id
 
-    row.appendChild(id)
-    row.appendChild(nome)
-    row.appendChild(descricao)
-    row.appendChild(editButton)
-    row.appendChild(deleteButton)
-
-    table.appendChild(row)
+    row.append(id, nome, descricao, editButton, deleteButton)
+    return row
   }
+
+  function editEntry (id) {
+    const row = document.getElementById("entry-"+id)
+    const list = JSON.parse(localStorage.getItem("list")) || []
+    const entry = list.find(e => e.id === id)
+
+    const inputNome = document.createElement("td").appendChild(document.createElement("input"))
+    inputNome.id = "edit-nome"
+    inputNome.value = entry.nome
+    const inputDescricao = document.createElement("td").appendChild(document.createElement("input"))
+    inputDescricao.id = "edit-descricao"
+    inputDescricao.value = entry.descricao
+
+    row.innerHTML = ""
+    row.append("<td>"+id+"</td>", inputNome, inputDescricao)
+    const saveButton = document.getElementById("save-btn")
+    saveButton.addEventListener("click", () => {
+      entry.nome = document.getElementById("edit-nome").value
+      entry.descricao = document.getElementById("edit-descricao").value
+      localStorage.setItem("list", JSON.stringify(list))
+      reload()
+    })
+  }
+
+  function deleteEntry (id) {
+    const list = JSON.parse(localStorage.getItem("list")) || []
+    const newList = list.filter(e => e.id !== id)
+    localStorage.setItem("list", JSON.stringify(newList))
+    reload()
+  }
+
 </script>
