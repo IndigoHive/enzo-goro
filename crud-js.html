@@ -1,35 +1,212 @@
 <!DOCTYPE html>
 
 <head>
+  <title>Lista de Heróis</title>
   <style>
-    .delete-btn {
-      background-color: lightgray;
-      color: red;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      display: none;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
     }
 
-    .edit-btn {
-      background-color: lightgray;
-      color: blue;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      display: none;
+    html {
+      height: 100%;
     }
 
-    .entry:hover .delete-btn,
-    .entry:hover .edit-btn {
-      display: inline-block;
+    body {
+      height: 100%;
+      padding: 0;
+      padding-top: 80px;
+      margin: 0;
+      background-color: rgb(240, 248, 255);
+      border: 1px solid #ccc;
     }
+
+    input:focus {
+      outline: none;
+      border: none;
+    }
+
+    #header {
+      top: 0px;
+      left: 0px;
+      margin: 0;
+      padding: 0;
+      position: fixed;
+      width: 100%;
+
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background-color: rgb(11, 11, 85);
+    }
+
+    .tab {
+      height: 50px;
+      padding: 10px 20px;
+      margin: 0 50px;
+
+      background-color: rgb(11, 11, 85);
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+
+      border: none;
+      border-radius: 5px;
+    }
+
+    .tab:hover {
+      color: white;
+      background-color: rgb(49, 49, 127);
+    }
+
+    #list-body {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    table {
+      position: relative;
+      margin-left: 92px;
+      top: 60px;
+      border-collapse: collapse;
+      /* width: 80%; */
+      text-align: center;
+    }
+
+    td:first-child, th:first-child {
+      width: 50px;
+    }
+
+    td:last-child, th:last-child {
+      width: 500px;
+    }
+
+    thead {
+      background-color: rgb(49, 49, 127);
+      color: white;
+    }
+
+    thead tr:hover td {
+      background-color: rgb(49, 49, 127);
+    }
+
+    tr {
+      height: 40px;
+    }
+
+    td {
+      width: 200px;
+    } 
+
+    th, td {
+      height: 40px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover td {
+      background-color: rgb(180, 190, 200);
+    }
+
+    .table-btn {
+      display: inline-flex;
+      margin: 0 3px;
+      padding-left: 0px;
+      height: 40px;
+      width: 40px;
+      align-items: center;
+      justify-content: center;
+
+      background-color: aliceblue;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      opacity: 0;
+    }
+
+    .table-btn:hover {
+      background-color: rgb(212, 219, 225);
+    }
+
+    #delete-btn {
+      color: darkred;
+    }
+
+    #edit-btn {
+      color: dimgray;
+    }
+
+    #save-btn {
+      color: darkgreen;
+    }
+
+    tr:hover .table-btn {
+      opacity: 1;
+    }
+
+    #insert-body {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+    }
+
+    #insert-body form {
+      position: relative;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgb(49, 49, 127);
+    }
+
+    #insert-body label {
+      color: white;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    #insert-body input {
+      height: 30px;
+      margin-bottom: 15px;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    #insert-body button {
+      height: 40px;
+      background-color: rgb(11, 11, 85);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #insert-body button:hover {
+      background-color: rgb(3, 3, 70);
+    }
+
   </style>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=edit,delete,check" />
 </head>
 
 <body>
-  <h3>TABELA</h3>
-  <div>
+  <div id="header">
+    <button class="tab" id="insert-tab">Criar Herói</button>
+    <button class="tab" id="list-tab">Lista de Heróis</button>
+  </div>
+
+  <div id="list-body">
     <table>
       <thead>
         <tr>
@@ -42,37 +219,78 @@
       </tbody>
     </table>
   </div>
-  <hr>
-  <h3>INSERT</h3>
-  <div>
-    <form>
-      <label>NOME:</label>
-      <input id="insert-nome">
-      <label>DESCRIÇÃO:</label>
-      <input id="insert-descricao">
-      <button type="button" id="insert-btn">INSERT</button>
-    </form>
+
+  <div id="insert-body">
+    <div>
+      <form>
+        <label>Nome:</label>
+        <input id="insert-nome">
+        <label>Descrição:</label>
+        <input id="insert-descricao">
+        <button type="button" id="insert-btn">Adicionar</button>
+      </form>
+    </div>
   </div>
 </body>
 
 <script>
+  reload()
+
+  var currentTab = "list"
+  switch_tab()
+
+  const insertTab = document.getElementById("insert-tab")
+  const listTab = document.getElementById("list-tab")
+  insertTab.addEventListener("click", () => {
+    currentTab = "insert"
+    switch_tab()
+  })
+  listTab.addEventListener("click", () => {
+    currentTab = "list"
+    switch_tab()
+  })
+
+  function switch_tab() {
+    const insertBody = document.getElementById("insert-body")
+    const listBody = document.getElementById("list-body")
+    const insertTab = document.getElementById("insert-tab")
+    const listTab = document.getElementById("list-tab")
+    if (currentTab === "insert") {
+      insertBody.style.display = "flex"
+      listBody.style.display = "none"
+      insertTab.style.backgroundColor = "rgb(49, 49, 127)"
+      listTab.removeAttribute("style")
+    } else {
+      insertBody.style.display = "none"
+      listBody.style.display = "flex"
+      insertTab.removeAttribute("style")
+      listTab.style.backgroundColor = "rgb(49, 49, 127)"
+    }
+  }
+
   const botao = document.getElementById("insert-btn")
   botao.addEventListener("click", insert)
 
-  reload()
-
   function insert() {
-    const nome = document.getElementById("insert-nome").value
-    const descricao = document.getElementById("insert-descricao").value
+    const nome = document.getElementById("insert-nome").value.trim()
+    const descricao = document.getElementById("insert-descricao").value.trim()
+    if (!nome || !descricao) {
+      alert("Preencha todos os campos!")
+      return
+    }
+    if (nome.length > 50 || descricao.length > 200) {
+      alert("Nome deve ter no máximo 50 caracteres e descrição no máximo 200 caracteres!")
+      return
+    }
+    if (JSON.parse(localStorage.getItem("list") || "[]").some(entry => entry.nome === nome)) {
+      alert("Nome já existe na lista!")
+      return  
+    }
+    
     const id = Number(parseInt(localStorage.getItem("id")) || 0) + 1
+    const list = JSON.parse(localStorage.getItem("list")) || []
+    list.push({ id, nome, descricao })
     localStorage.setItem("id", id)
-    const entry = { id, nome, descricao }
-    insertLocalStorage(entry)
-  }
-
-  function insertLocalStorage(entry) {
-    const list = JSON.parse(localStorage.getItem("list")) || [] 
-    list.push(entry)
     localStorage.setItem("list", JSON.stringify(list))
     reload()
   }
@@ -81,7 +299,7 @@
     const table = document.querySelector("tbody")
     table.innerHTML = ""
     const list = JSON.parse(localStorage.getItem("list")) || []
-    list.forEach(entry => {table.appendChild(createRow(entry))})
+    list.forEach(entry => { table.appendChild(createRow(entry)) })
   }
 
   function createRow(entry) {
@@ -93,54 +311,65 @@
     descricao.textContent = entry.descricao
 
     const editButton = document.createElement("button")
-    editButton.className = "edit-btn"
-    editButton.textContent = "Edit"
+    editButton.className = "table-btn"
+    editButton.id = "edit-btn"
+    editButton.innerHTML = '<span class="material-symbols-outlined">edit</span>'
     editButton.addEventListener("click", (event) => {
-      // ALTERAR LOGICA DE EDIT
       event.stopPropagation()
       editEntry(entry.id)
     })
 
     const deleteButton = document.createElement("button")
-    deleteButton.className = "delete-btn"
-    deleteButton.textContent = "X"
+    deleteButton.className = "table-btn"
+    deleteButton.id = "delete-btn"
+    deleteButton.innerHTML = '<span class="material-symbols-outlined">delete</span>'
     deleteButton.addEventListener("click", (event) => {
       event.stopPropagation()
       deleteEntry(entry.id)
     })
 
     const row = document.createElement("tr")
-    row.className = "entry"
-    row.id = "entry-" + id
+    row.id = "entry-" + entry.id
 
     row.append(id, nome, descricao, editButton, deleteButton)
     return row
   }
 
-  function editEntry (id) {
-    const row = document.getElementById("entry-"+id)
+  function editEntry(id) {
+    const row = document.getElementById("entry-" + id)
     const list = JSON.parse(localStorage.getItem("list")) || []
     const entry = list.find(e => e.id === id)
 
-    const inputNome = document.createElement("td").appendChild(document.createElement("input"))
-    inputNome.id = "edit-nome"
+    const inputNome = document.createElement("input")
+    inputNome.id = "input-nome"
     inputNome.value = entry.nome
-    const inputDescricao = document.createElement("td").appendChild(document.createElement("input"))
-    inputDescricao.id = "edit-descricao"
+    const inputDescricao = document.createElement("input")
+    inputDescricao.id = "input-descricao"
     inputDescricao.value = entry.descricao
 
-    row.innerHTML = ""
-    row.append("<td>"+id+"</td>", inputNome, inputDescricao)
-    const saveButton = document.getElementById("save-btn")
+    const td_id = document.createElement("td")
+    td_id.textContent = entry.id
+    const td_nome = document.createElement("td")
+    td_nome.appendChild(inputNome)
+    const td_descricao = document.createElement("td")
+    td_descricao.appendChild(inputDescricao)
+
+    const saveButton = document.createElement("button")
+    saveButton.className = "table-btn"
+    saveButton.id = "save-btn"
+    saveButton.innerHTML = '<span class="material-symbols-outlined">check</span>'
     saveButton.addEventListener("click", () => {
-      entry.nome = document.getElementById("edit-nome").value
-      entry.descricao = document.getElementById("edit-descricao").value
+      entry.nome = document.getElementById("input-nome").value.trim()
+      entry.descricao = document.getElementById("input-descricao").value.trim()
       localStorage.setItem("list", JSON.stringify(list))
       reload()
     })
+
+    row.innerHTML = ""
+    row.append(td_id, td_nome, td_descricao, saveButton)
   }
 
-  function deleteEntry (id) {
+  function deleteEntry(id) {
     const list = JSON.parse(localStorage.getItem("list")) || []
     const newList = list.filter(e => e.id !== id)
     localStorage.setItem("list", JSON.stringify(newList))
