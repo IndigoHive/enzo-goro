@@ -1,4 +1,4 @@
-import type { Author } from '../../../types/author'
+import type { Author } from '../../../types'
 import type { IAuthorsRepository } from '../authors-repository'
 
 export class InMemoryAuthorsRepository implements IAuthorsRepository {

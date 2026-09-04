@@ -1,0 +1,32 @@
+## Variables
+@base_url = http://localhost:3000
+
+### Create Author
+# @prompt name
+POST {{base_url}}/authors
+Content-Type: application/json
+
+{
+  "name": "{{name}}"
+}
+
+### List Authors
+GET {{base_url}}/authors
+
+### Find Author
+# @prompt author_id
+GET {{base_url}}/authors/{{author_id}}
+
+### Update Author
+# @prompt author_id
+# @prompt name
+PATCH {{base_url}}/authors/{{author_id}}
+Content-Type: application/json
+
+{
+  "name": "{{name}}"
+}
+
+### Delete Author
+# @prompt author_id
+DELETE {{base_url}}/authors/{{author_id}}

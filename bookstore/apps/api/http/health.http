@@ -2,4 +2,4 @@
 @base_url = http://localhost:3000
 
 ### Health
-GET {{base_url}}/health
+GET {{base_url}}/healthx
