@@ -10,7 +10,7 @@ import { logger } from '../../logger'
 export function awilixContainer(
   container: AwilixContainer<ContainerServices>
 ): RequestHandler {
-  return (req, res, next) => {
+  return (req, _res, next) => {
     req.container = container.createScope()
     req.container.register({
       logger: asFunction(() =>

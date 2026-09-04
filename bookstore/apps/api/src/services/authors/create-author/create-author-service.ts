@@ -17,9 +17,6 @@ export class CreateAuthorService {
   private _logger: Logger
 
   constructor(params: CreateAuthorServiceParams) {
-    console.log('PARAMS:', params)
-    console.log('LOGGER:', params.logger)
-    console.log('LOGGER CHILD:', params.logger?.child)
     this._authorsRepository = params.authorsRepository
     this._logger = params.logger.child({ service: 'CreateAuthorService' })
   }

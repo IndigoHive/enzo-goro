@@ -31,6 +31,8 @@ export class FindAuthorService {
       )
     }
 
+    this._logger.info('Author found!')
+
     return author
   }
 }
