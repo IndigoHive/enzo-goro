@@ -9,6 +9,7 @@ import {
 } from './middlewares'
 import { awilixContainer } from './middlewares/awilix/awilix-container'
 import { authorsRouter, healthRouter } from './routers'
+import { booksRouter } from './routers/books-router/books-router'
 
 export function createApp(): Express {
   const container = createContainer()
@@ -25,6 +26,7 @@ export function createApp(): Express {
 
   app.use(healthRouter())
   app.use(authorsRouter())
+  app.use(booksRouter())
 
   app.use(notFoundHandler())
   app.use(yupErrorHandler())

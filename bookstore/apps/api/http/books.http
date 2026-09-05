@@ -1,0 +1,36 @@
+## Variables
+@base_url = http://localhost:3000
+
+### Create Book
+# @prompt authorId
+# @prompt title
+POST {{base_url}}/books
+Content-Type: application/json
+
+{
+  "authorId": "{{authorId}}",
+  "title": "{{title}}"
+}
+
+### List Books
+GET {{base_url}}/books
+
+### Find Book
+# @prompt book_id
+GET {{base_url}}/books/{{book_id}}
+
+### Update Book
+# @prompt book_id
+# @prompt authorId
+# @prompt title
+PATCH {{base_url}}/books/{{book_id}}
+Content-Type: application/json
+
+{
+  "authorId": "{{authorId}}",
+  "title": "{{title}}"
+}
+
+### Delete Book
+# @prompt book_id
+DELETE {{base_url}}/books/{{book_id}}

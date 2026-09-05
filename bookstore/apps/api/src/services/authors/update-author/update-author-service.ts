@@ -32,11 +32,6 @@ export class UpdateAuthorService {
 
     const validateId = await numberValidator.validate(authorId)
 
-    this._logger.info(
-      { id: validateId, authorName: validateData.name },
-      'Author updated'
-    )
-
     const author = await this._authorsRepository.update(
       validateId,
       validateData
@@ -47,6 +42,11 @@ export class UpdateAuthorService {
         `Author with id '${authorId}' not found`
       )
     }
+
+    this._logger.info(
+      { id: author.id, authorName: author.name },
+      'Author updated'
+    )
 
     return author
   }
